@@ -18,6 +18,25 @@ while current <= n + 1:
 print('NO' if stack else '\n'.join(ans))
 print(stack)
 
+#17298번: 오큰수
+N = int(input())
+A = list(map(int, input().split()))
+stack = [A[-1]]
+ans = [-1]
+
+for i in range(N - 2, -1, -1):
+    while stack:
+        if A[i] < stack[-1]:
+            ans.append(stack[-1])
+            
+            break
+        else: stack.pop()
+    else:
+        ans.append(-1)
+    stack.append(A[i])
+
+print(' '.join(map(str, ans[::-1])))
+
 #큐
 #1158번: 요세푸스 문제
 from collections import deque
@@ -33,6 +52,19 @@ while Q:
     cnt = (cnt + 1) % K
 
 print(f"<{', '.join(map(str, ans))}>")
+
+#덱
+#2164번: 카드2
+from collections import deque
+
+N = int(input())
+dq = deque(i for i in range(1, N + 1))
+
+while len(dq) != 1:
+    dq.popleft()
+    dq.append(dq.popleft())
+
+print(dq[0])
 
 #1021번: 회전하는 큐
 from collections import deque
@@ -53,19 +85,6 @@ while target:
             Deq.appendleft(Deq.pop())
         cnt += 1
 print(cnt)
-
-#덱
-#2164번: 카드2
-from collections import deque
-
-N = int(input())
-dq = deque(i for i in range(1, N + 1))
-
-while len(dq) != 1:
-    dq.popleft()
-    dq.append(dq.popleft())
-
-print(dq[0])
 
 #우선순위 큐
 #1927번: 최소 힙
