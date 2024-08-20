@@ -18,21 +18,6 @@ while current <= n + 1:
 print('NO' if stack else '\n'.join(ans))
 print(stack)
 
-#1417번: 국회의원 선거
-N = int(input())
-me = int(input())
-others = sorted([int(input()) for _ in range(N - 1)])
-ans = 0
-
-while others and me <= others[-1]:
-    me += 1
-    others[-1] -= 1
-    ans += 1
-    others.sort()
-    
-print(ans)
-
-
 #큐
 #1158번: 요세푸스 문제
 from collections import deque
@@ -118,3 +103,33 @@ for _ in range(int(input())):
         heappush(hq, [abs(x), x])
     else:
         print(0 if not hq else heappop(hq)[1])
+
+#1417번: 국회의원 선거
+N = int(input())
+me = int(input())
+others = sorted([int(input()) for _ in range(N - 1)])
+ans = 0
+
+while others and me <= others[-1]:
+    me += 1
+    others[-1] -= 1
+    ans += 1
+    others.sort()
+    
+print(ans)
+#우선순위 큐로 다시
+from heapq import heapify, heappop, heappush
+
+N = int(input())
+me = int(input())
+others = [-int(input()) for _ in range(N - 1)]
+heapify(others) #반환값 없음
+ans = 0
+
+while others and me <= -others[0]:
+    root = heappop(others) + 1
+    me += 1
+    ans += 1
+    heappush(others, root)
+
+print(ans)
