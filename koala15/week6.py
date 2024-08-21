@@ -1,5 +1,6 @@
 #BFS, DFS
 
+#BFS
 #2606번: 바이러스
 from collections import deque
 
@@ -28,6 +29,43 @@ for _ in range(int(input())):
     graph[y].append(x)
 
 print(bfs(1))
+
+#1012번: 유기농 배추
+from collections import deque
+
+def BFS(x, y):
+    dxs = [1, -1, 0, 0]
+    dys = [0, 0, 1, -1]
+
+    queue = deque([(x, y)]) #queue = deque((x, y))하면 unpack
+    visited[x][y] = True
+
+    while queue:
+        x, y = queue.popleft()
+        for dx, dy in zip(dxs, dys):
+            if 0 <= x + dx < M and 0 <= y + dy < N:
+                if not visited[x + dx][y + dy] and graph[x + dx][y + dy]:
+                    visited[x + dx][y + dy] = True
+                    queue.append((x + dx, y + dy))
+    
+for _ in range(int(input())):
+    M, N, K = map(int, input().split())
+    graph = [[0] * N for _ in range(M)]
+    visited = [[False] * N for _ in range(M)]
+    
+    for _ in range(K):
+        x, y = map(int, input().split())
+        graph[x][y] = 1
+
+    ans = 0
+    
+    for i in range(M):
+        for j in range(N):
+            if not visited[i][j] and graph[i][j]:
+                BFS(i, j)
+                ans += 1
+
+    print(ans)
 
 #2644번: 촌수 계산 #pass
 from collections import deque
