@@ -70,9 +70,44 @@ for _ in range(int(input())):
 #2644번: 촌수 계산 #pass
 from collections import deque
 
+def BFS(x):
+    queue = deque([x])
+    
+    while queue:
+        node = queue.popleft()
+        for n in node:
+            if not check[n]:
+                check[n] = check[node] + 1
+
 n = int(input())
-target = [input()]
-li = [i for i in range(n + 1)]
+u, v = map(int, input().split())
+graph = [[] for i in range(n + 1)]
 
 for _ in range(int(input())):
-    li[int(input())].append(int(input()))
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
+
+check = [[0] for _ in range(n)]
+BFS(u)
+print(check[v] if check[v] else -1)
+
+#DFS
+#2606번: 바이러스
+def DFS(node):
+    visited[node] = True
+
+    for n in node:
+        if not visited[n]:
+            DFS(n)
+
+n = int(input())
+graph = [[] for _ in range(n + 1)]
+visited = [False for _ in range(n + 1)]
+for _ in range(int(input())):
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
+
+DFS(1)
+print(visited.count(True))
