@@ -111,3 +111,23 @@ for _ in range(int(input())):
 
 DFS(1)
 print(visited.count(True))
+
+#6186번: Best Grass
+def DFS(x, y):
+    dxs, dys = [1, -1, 0, 0], [0, 0, 1, -1]
+
+    visited[x][y] = True
+    for dx, dy in zip(dxs, dys):
+        if not visited[x + dx][y + dy]:
+            DFS(x + dx, y + dy)
+
+R, C = map(int, input().split())
+graph = [list(input()) for _ in range(R)]
+visited = [[False] * C for _ in range(R)]
+ans = 0
+
+for i in range(R):
+    for j in range(C):
+        if not visited[i][j]:
+            DFS(i, j)
+            ans += 1
