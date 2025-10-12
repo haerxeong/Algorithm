@@ -1,4 +1,4 @@
-N, K = map(int, input().split())    # N 종류 동전으로 K 만들긔
+N, K = map(int, input().split())
 coins = [int(input()) for _ in range(N)]
 
 ans = 0
